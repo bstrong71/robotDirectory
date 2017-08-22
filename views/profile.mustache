@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="../public/style.css">
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="userProf">
+        <img class="pic" src={{avatar}}>
+        <h2 class="proName">{{name}}</h2>
+        {{#job}}
+          <p>{{address.city}}, {{address.country}}  |  {{job}}, {{company}}</p>
+          <p>{{email}}  |  {{phone}}</p>
+        {{/job}}
+        {{^job}}
+          <p>{{address.city}}, {{address.country}}  |  Available for hire</p>
+          <p>{{email}}  |  {{phone}}</p>
+        {{/job}}
+        {{#university}}
+          <p id="education">Education    {{university}}</p>
+          <p id="skills">Skills    {{skills}}</p>
+        {{/university}}
+        {{^university}}
+          <p id="skills">Skills  {{skills}}</p>
+        {{/university}}
+
+      </div>
+    </div>
+  </body>
+</html>
