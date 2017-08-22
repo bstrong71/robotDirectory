@@ -1,0 +1,14 @@
+{{#users}}
+  <a class="content" href="/user/{{id}}">
+    <div class="eachUser">
+      <img src={{avatar}}>
+      <h2>{{name}}</h2>
+      {{#job}}
+        <p id="jobp">{{job}}, {{company}}</p>
+      {{/job}}
+      {{^job}}
+        <p id="hirep">Available for hire</p>
+      {{/job}}
+    </div>
+  </a>
+{{/users}}

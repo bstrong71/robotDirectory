@@ -1,15 +1,16 @@
 const express         = require('express');
 const path            = require('path');
 const mustacheExpress = require('mustache-express');
-const app             = express();
-const Data            = require('./models/robotDirectory.json');
 const router          = require('./routes/user.js');
+const app             = express();
 
 app.engine('mustache', mustacheExpress());
-app.set('views', './views');
+app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'mustache');
+app.set('layout', 'layout');
 
-app.use('/public', express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public')));
+
 app.use(router);
 
 
