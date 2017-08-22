@@ -5,6 +5,7 @@
 
 body{
   font-family: sans-serif;
+  background-color: red;
 }
 
 header{
@@ -28,7 +29,7 @@ main{
 }
 
 .content{
-  flex: 1 1 150px;
+  flex: 0;
   margin: 10px;
 
 }
@@ -37,7 +38,9 @@ main{
   border: 1px solid black;
   display: flex;
   flex-direction: column;
+  height: 275px;
   padding: 10px;
+  width: 190px;
 }
 
 .eachUser img{
