@@ -5,11 +5,23 @@
 
 body{
   font-family: sans-serif;
-  background-color: red;
 }
 
 header{
-  padding: 10px 25px;
+  padding: 20px 10px;
+  width: 100%;
+}
+
+nav{
+  background-color: steelblue;
+  padding: 30px;
+}
+
+a{
+  color: white;
+  font-size: 18px;
+  font-weight: 600;
+  margin-right: 30px;
 }
 
 main{
@@ -31,7 +43,6 @@ main{
 .content{
   flex: 0;
   margin: 10px;
-
 }
 
 .eachUser{

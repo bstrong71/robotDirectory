@@ -88,7 +88,7 @@ router.get('/looking', getJobless, function(req, res) {
 });
 
 router.get('/employed', getEmployed, function(req, res) {
-  res.render('looking', {users: data});
+  res.render('employed', {users: data});
 });
 
 router.get('/user/:id', getListings, function (req, res) {
