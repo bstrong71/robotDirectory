@@ -1,7 +1,7 @@
 const mongoose      = require('mongoose');
 mongoose.Promise    = require('bluebird');
 const Schema        = mongoose.Schema;
-
+const bcrypt        = require('bcryptjs');
 mongoose.connect('mongodb://localhost:27017/users');
 
 const userSchema = new mongoose.Schema({
