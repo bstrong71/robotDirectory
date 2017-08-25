@@ -24,6 +24,10 @@ a{
   margin-right: 30px;
 }
 
+#editlink{
+  color: black;
+}
+
 main{
   display: flex;
   flex-wrap: wrap;

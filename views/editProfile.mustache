@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Edit Profile</title>
+    <link rel="stylesheet" href="../style.css">
+  </head>
+  <body>
+    {{#userP}}
+    <div class="wrapper">
+      <div class="userProf">
+        <img class="pic" src={{avatar}}>
+        <h2 class="proName">{{name}}</h2>
+        {{#job}}
+          <p>{{address.city}}, {{address.country}}  |  {{job}}, {{company}}</p>
+          <p>{{email}}  |  {{phone}}</p>
+        {{/job}}
+        {{^job}}
+          <p>{{address.city}}, {{address.country}}  |  Available for hire</p>
+          <p>{{email}}  |  {{phone}}</p>
+        {{/job}}
+        {{#university}}
+          <p id="education">Education    {{university}}</p>
+          <p id="skills">Skills    {{skills}}</p>
+        {{/university}}
+        {{^university}}
+          <p id="skills">Skills  {{skills}}</p>
+        {{/university}}
+      </div>
+    </div>
+    <div class="wrapper">
+      <header>
+        <h1>Edit Your Profile</h1>
+      </header>
+      <div class="userProf">
+        <form class="" action="/update/{{_id}}" method="post">
+          <input type="text" name="name" value="{{name}}" placeholder="Name">
+          <input type="text" name="username" value="{{username}}" placeholder="Username">
+          <input type="email" name="email" value="{{email}}" placeholder="Email">
+          <input type="text" name="university" value="{{university}}" placeholder="University">
+          <input type="text" name="job" value="{{job}}" placeholder="Job">
+          <input type="text" name="company" value="{{company}}" placeholder="Company">
+          <input type="text" name="skills" value="{{skills}}" placeholder="Skills">
+          <input type="tel" name="phone" value="{{phone}}" placeholder="Phone">
+          <input type="number" name="street_num" value="{{street_num}}" placeholder="Street Number">
+          <input type="text" name="street_name" value="{{street_name}}" placeholder="Street Name">
+          <input type="text" name="city" value="{{city}}" placeholder="City">
+          <input type="text" name="state_or_province" value="{{state_or_province}}" placeholder="State/Province">
+          <input type="number" name="postal_code" value="{{postal_code}}" placeholder="Postal Code">
+          <input type="text" name="country" value="{{country}}" placeholder="Country">
+          <button type="submit" name="button">Save Changes</button>
+        </form>
+      </div>
+    </div>
+    {{/userP}}
+  </body>
+</html>

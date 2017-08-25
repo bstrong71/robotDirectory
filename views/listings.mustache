@@ -1,8 +1,11 @@
 <header>
   <h1>The Robots User Directory</h1>
+  {{#loggedIn}}
+    <h4>User Logged In: {{username}}</h4>
+  {{/loggedIn}}
 </header>
 {{#users}}
-  <a class="content" href="/user/{{id}}">
+  <a class="content" href="/user/{{_id}}">
     <div class="eachUser">
       <img src={{avatar}}>
       <h2>{{name}}</h2>
