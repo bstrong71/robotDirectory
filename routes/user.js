@@ -1,87 +1,74 @@
-const express = require('express');
-const router  = express.Router();
+const express   = require('express');
+const User      = require('../models/user');
+const router    = express.Router();
+const mongoose  = require('mongoose');
+const passport  = require('passport');
+
+mongoose.connect('mongodb://localhost:27017/users');
 
 let data = []; //gives access to data in routes because global
+
+//requires login to access user profile page//
+const requireLogin = function (req, res, next) {
+  if (req.user) {
+    console.log(req.user)
+    next()
+  } else {
+    res.redirect('/');
+  }
+};
+
+const login = function (req, res, next) {
+  if (req.user) {
+    res.redirect("/user")
+  } else {
+    next();
+  }
+};
+
 // retrieves all data for query access //
 const getListings = function(req, res, next) {
-  let MongoClient = require("mongodb").MongoClient;
-  let assert = require("assert"); //for testing//
-
-  let url = "mongodb://localhost:27017/robotDirectory"; //url connects to mongo db
-
-  MongoClient.connect(url, function(err, db) {
-    assert.equal(null, err); //are there any errors?//
-
-    getData(db, function() {
-      db.close(); //closes db so doesn't keep running
+  User.find({}).sort("name")
+    .then(function(users) {
+      data = users;
       next();
-    });
-  });
-  // this function will grab data from db when called //
-  let getData = function(db, callback) {
-    let users = db.collection("users"); //users now represents db//
-
-    users.find({}).toArray().then(function(users) { //this line will be changed
-      data = users; //not pushed, so not array in array//
-      callback(); //run callback after getting data//
     })
-  }
+    .catch(function(err) {
+      console.log(err);
+    })
 };
 
 //**** looking data middleware ****//
 const getJobless = function(req, res, next) {
-  let MongoClient = require("mongodb").MongoClient;
-  let assert = require("assert");
-  let url = "mongodb://localhost:27017/robotDirectory";
-
-  MongoClient.connect(url, function(err, db) {
-    assert.equal(null, err);
-
-    getData(db, function() {
-      db.close();
-      next();
-    });
-  });
-
-  let getData = function(db, callback) {
-    let users = db.collection("users");
-
-    users.find({"job": null}).toArray().then(function(users) {
+  User.find({"job": null}).sort("name")
+    .then(function(users) {
       data = users;
-      callback();
+      next();
     })
-  }
+    .catch(function(err) {
+      console.log(err);
+    })
 };
 
 //**** employed data middleware ****//
-  getEmployed = function(req, res, next) {
-  let MongoClient = require("mongodb").MongoClient;
-  let assert = require("assert");
-
-  let url = "mongodb://localhost:27017/robotDirectory";
-
-  MongoClient.connect(url, function(err, db) {
-    assert.equal(null, err);
-
-    getData(db, function() {
-      db.close();
-      next();
-    });
-  });
-
-  let getData = function(db, callback) {
-    let users = db.collection("users");
-
-    users.find({"job": {$nin: [null]}}).toArray().then(function(users) {
+const getEmployed = function(req, res, next) {
+  User.find({"job": {$nin: [null]}}).sort("name")
+    .then(function(users) {
       data = users;
-      callback();
+      next();
     })
-  }
+    .catch(function(err) {
+      console.log(err);
+    })
 };
 
-router.get('/', getListings, function (req, res) {
+router.get('/', getListings, function(req, res) {
   res.render('listings', {users: data});
 });
+
+router.get('/login', function(req, res) {
+  res.render('login');
+})
 
 router.get('/looking', getJobless, function(req, res) {
   res.render('looking', {users: data});
@@ -98,6 +85,17 @@ router.get('/user/:id', getListings, function (req, res) {
     return user.id == id;
   });
   res.render('profile', userP);
+});
+
+router.get("/user", requireLogin, function(req, res) {
+  res.render("user", {username: req.user.username});
+});
+
+router.get("/logout", function(req, res) {
+  req.session.destroy(function(err) {
+    console.log(err);
+  });
+  res.redirect("/");
 });
 
 module.exports = router;
