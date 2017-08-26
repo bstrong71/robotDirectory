@@ -11,12 +11,13 @@
       <div class="userProf">
         <img class="pic" src={{avatar}}>
         <h2 class="proName">{{name}}</h2>
+        <h4 class="userName">Username: {{username}}</h4>
         {{#job}}
-          <p>{{address.city}}, {{address.country}}  |  {{job}}, {{company}}</p>
+          <p>{{address.street_num}} {{address.street_name}}, {{address.city}}, {{address.state_or_province}} {{address.country}}  |  {{job}}, {{company}}</p>
           <p>{{email}}  |  {{phone}}</p>
         {{/job}}
         {{^job}}
-          <p>{{address.city}}, {{address.country}}  |  Available for hire</p>
+          <p>{{address.street_num}} {{address.street_name}}, {{address.city}}, {{address.state_or_province}} {{address.country}}  |  Available for hire</p>
           <p>{{email}}  |  {{phone}}</p>
         {{/job}}
         {{#university}}
@@ -42,12 +43,12 @@
           <input type="text" name="company" value="{{company}}" placeholder="Company">
           <input type="text" name="skills" value="{{skills}}" placeholder="Skills">
           <input type="tel" name="phone" value="{{phone}}" placeholder="Phone">
-          <input type="number" name="street_num" value="{{street_num}}" placeholder="Street Number">
-          <input type="text" name="street_name" value="{{street_name}}" placeholder="Street Name">
-          <input type="text" name="city" value="{{city}}" placeholder="City">
-          <input type="text" name="state_or_province" value="{{state_or_province}}" placeholder="State/Province">
-          <input type="number" name="postal_code" value="{{postal_code}}" placeholder="Postal Code">
-          <input type="text" name="country" value="{{country}}" placeholder="Country">
+          <input type="number" name="street_num" value="{{address.street_num}}" placeholder="Street Number">
+          <input type="text" name="street_name" value="{{address.street_name}}" placeholder="Street Name">
+          <input type="text" name="city" value="{{address.city}}" placeholder="City">
+          <input type="text" name="state_or_province" value="{{address.state_or_province}}" placeholder="State/Province">
+          <input type="number" name="postal_code" value="{{address.postal_code}}" placeholder="Postal Code">
+          <input type="text" name="country" value="{{address.country}}" placeholder="Country">
           <button type="submit" name="button">Save Changes</button>
         </form>
       </div>

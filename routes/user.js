@@ -133,9 +133,10 @@ router.get('/user/:id', function (req, res) {
 // })
 
 router.post('/update/:id', function(req, res) {
+  console.log("THIS IS REQ.BODY.street_num: ", req.body.street_num);
   let id = req.params.id;
-  console.log("This is ID: ",id);
   let robotUpdate = {};
+  robotUpdate.address = {};
   if(req.body.name){
     robotUpdate.name = req.body.name;
   };
@@ -158,26 +159,27 @@ router.post('/update/:id', function(req, res) {
     robotUpdate.phone = req.body.phone;
   };
   if(req.body.street_num){
-    robotUpdate.street_num = {"address": req.body.street_num};
+    robotUpdate.address.street_num = req.body.street_num;
   };
   if(req.body.street_name){
-    robotUpdate.street_name = {"address": req.body.street_name};
+    robotUpdate.address.street_name = req.body.street_name;
   };
   if(req.body.city){
-    robotUpdate.city = {"address": req.body.city};
+    robotUpdate.address.city = req.body.city;
   };
   if(req.body.state_or_province){
-    robotUpdate.state_or_province = {"address": req.body.state_or_province};
+    robotUpdate.address.state_or_province = req.body.state_or_province;
   };
   if(req.body.postal_code){
-    robotUpdate.postal_code = {"address": req.body.postal_code};
+    robotUpdate.address.postal_code = req.body.postal_code;
   };
   if(req.body.country){
-    robotUpdate.country = {"address": req.body.country};
+    robotUpdate.address.country = req.body.country;
   };
+  console.log("THIS IS ROBOTUPDATE: ", robotUpdate);
   User.update({_id: id}, {$set: robotUpdate})
     .then(function(data) {
-    res.redirect("/user/" + id);
+    res.redirect("/");
     })
     .catch(function(err) {
       console.log(err);
